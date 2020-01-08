@@ -24,7 +24,7 @@ const router = ( () => {
     const hash = (getHash.length <= 0 ? 'home' : getHash);
     (routes[hash] || routes.other)();
   }
-  
+
   window.addEventListener('hashchange', router);
   window.addEventListener('DOMContentLoaded', router);
 })();

@@ -53,6 +53,7 @@
 }
 
 #cities-list a {
+  overflow:hidden;
   position:relative;
   display:inline-block;
   width:80px;
@@ -176,4 +177,46 @@
 #festival-list .festival_text.date {
   font-size:12px;
   color:#999;
+}
+
+#stay-list {
+  overflow-y:hidden;
+  overflow-x:auto;
+  white-space:nowrap
+}
+
+#stay-list::-webkit-scrollbar {
+  display:none
+}
+
+#stay-list .stay_item {
+  display:inline-block;
+  max-width:240px;
+  margin-right:20px;
+  vertical-align:top;
+}
+
+#stay-list .stay_item:last-child {
+  margin-right:0;
+}
+
+#stay-list .stay_thumb img {
+  height:160px;
+}
+
+#stay-list .stay_text {
+  padding:6px 0 4px;
+  word-break:break-all;
+  white-space:normal;
+}
+
+#stay-list .stay_text.title {
+  line-height:1.4;
+}
+
+#stay-list .stay_text.address,
+#stay-list .stay_text.tel {
+  padding:4px 0 2px;
+  font-size:13px;
+  color:#999
 }

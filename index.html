@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>TRIPER</title>
+    <link rel="icon" type="image/png" sizes="120x120" href="./favicon-120x120.png">
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR|Ubuntu&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./src/css/app.css">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -40,7 +41,7 @@
 
         <!-- 구,군 -->
         <div class="content" id="local">
-            <h2 class="content_title">지역정보 <span class="sub">&middot;선택한 도시의 지역정보 입니다.</span></h2>
+            <h2 class="content_title">지역정보 <span class="sub">&middot;선택한 지역의 정보를 볼 수 있습니다.</span></h2>
             <div class="local-box">
                 <a href="/" class="local-list-close" data-state="close">더보기</a>
                 <ul id="local-list"></ul>    
@@ -58,7 +59,7 @@
         <!-- 숙박 -->
         <div class="content" id="stay">
             <h2 class="content_title">숙박정보 <span class="sub">&middot;최근 숙박정보 입니다.</span></h2>
-            <div id="stay-list"></div>
+            <ul id="stay-list"></ul>
         </div>
         <!-- //숙박 -->
     </div>
@@ -101,7 +102,7 @@
 </div>
 <!-- // FIXED MENU -->
 <!-- <a href="#" id="Quick">상단으로</a> -->
-<script src="./src/js/test.js"></script>
+<script src="./src/js/helper.js"></script>
 <script src="./src/js/template.js"></script>
 <script src="./src/js/cities.js"></script>
 <script src="./src/js/router.js"></script>

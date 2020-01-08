@@ -56,3 +56,8 @@ img {
 	width:100%;
 	vertical-align:top
 }
+
+input {
+	-webkit-appearance: none;
+	-webkit-border-radius: 0;
+ }

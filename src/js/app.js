@@ -1,5 +1,5 @@
 const getInfo = (()=>{
-    const apiUrl = 'http://api.visitkorea.or.kr/openapi/service/rest/KorService/';
+    const apiUrl = '//api.visitkorea.or.kr/openapi/service/rest/KorService/';
     const apiKey = decodeURIComponent('Q6I%2FZ%2BtN8n3yVqpZvlgFIP8b9xAx8Sv2KgwT3lcFGRU3RJDZ5V09bOOtfLXTC9PW0kg2Ju9fGOWlO4BMrt2LMw%3D%3D');
 
     const strPad = (date) => {
@@ -55,37 +55,21 @@ const getData = async (serviceCode, params) => {
     return data;
 };
 
-const mergeObj = (arr1, arr2) => {
-    let idx = 0;
-    let obj = {
-        item : []
-    };
-
-    while(idx < arr1.length){
-      if(arr1[idx].code === arr2[idx].code){
-          obj.item.push({...arr1[idx],...arr2[idx]})
-      }
-      idx = idx+1
-    }
-
-    return obj;
-}
-
 const pickEl = (() => {
     // 페이지
     const pages = {
-        'all' : document.querySelectorAll('.page'),
-        'home' : document.querySelector('#main'),
-        'search' : document.querySelector('#search'),
-        'location' : document.querySelector('#location'),
-        'favorite' : document.querySelector('#favorite'),
+        'all' : qsa('.page'),
+        'home' : qs('#main'),
+        'search' : qs('#search'),
+        'location' : qs('#location'),
+        'favorite' : qs('#favorite'),
     }
 
     // 리스트
-    const citiesArea = document.querySelector('#cities-list');
-    const localArea = document.querySelector('#local-list');
-    const festivalArea = document.querySelector('#festival-list')
-    const stayArea = document.querySelector('#stay-list')
+    const citiesArea = qs('#cities-list');
+    const localArea = qs('#local-list');
+    const festivalArea = qs('#festival-list');
+    const stayArea = qs('#stay-list');
 
     return {
         pages,
@@ -106,9 +90,10 @@ const generateList = (template, data) => {
             if (key === 'firstimage' && item[key] === undefined){
                 return 'http://placehold.it/320x100?text=image_not_found'
             }
-            if (key === 'homepage'){
-                console.log('이건 홈페이지 처리')
+            if (key === 'eventstartdate' || key === 'eventenddate'){
+                return dateFormatter(item[key])
             }
+
             return item[key];
         });
     });
@@ -129,13 +114,13 @@ const destory = (selector) => {
 }
 
 const bindEvents = () => {        
-    document.querySelector('#cities-list').addEventListener('click', clickEvent => {
+    $on(pickEl.citiesArea, 'click', clickEvent => {
         clickEvent.preventDefault();
         let target = clickEvent.target;
         updateCities(target.dataset.code);
     });
-
-    document.querySelector('.local-list-close').addEventListener('click', clickEvent => {
+    
+    $on(qs('.local-list-close'), 'click', clickEvent => {
         clickEvent.preventDefault();
         let target = clickEvent.target;
         let list = document.querySelector('#local-list');
@@ -158,8 +143,12 @@ const init = (async () => {
         areaCode : 1,
         numOfRows : 25
     });
-    const festivalData = await getData('searchFestival');
-    const stayData = await getData('searchStay');
+    const festivalData = await getData('searchFestival', {
+        arrange : 'C',
+    });
+    const stayData = await getData('searchStay', {
+        arrange : 'C',
+    });
 
     pickEl.citiesArea.innerHTML = generateList(templates.citiesList, citiesData);
     pickEl.localArea.innerHTML = generateList(templates.localList, localData);
