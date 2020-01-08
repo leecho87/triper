@@ -7,7 +7,13 @@ const qsa = selector => {
 }
 
 const $on = (target, type, callback) => {
-    target.addEventListener(type, callback);
+    if( target.length > 1 ){
+        for(let i=0; i<target.length; i++){
+            target[i].addEventListener(type, callback);        
+        }
+    }else{
+        target.addEventListener(type, callback);
+    }
 }
 
 const dateFormatter = (eventDate) => {

@@ -132,6 +132,33 @@ const bindEvents = () => {
             list.style.maxHeight = '42px';
         }
     });
+
+    $on(qsa('.more-btn'), 'click', clickEvent => {
+        clickEvent.preventDefault();
+        onDetail();
+    });
+
+    $on(qs('.detail-close'), 'click', clickEvent => {
+        clickEvent.preventDefault();
+        onDetail();
+    });
+};
+
+const onDetail = () => {
+    let container = qs('#Detail');
+
+    if (container.classList.contains('disabled')){
+        container.classList.remove('disabled');
+        container.classList.add('active');
+    } else {
+        container.classList.remove('active');
+        container.classList.add('disabled');
+    }
+}
+
+const render = (container, element, data) => {
+    let el = templates[element];
+    console.log(el);
 };
 
 const init = (async () => {
@@ -144,10 +171,10 @@ const init = (async () => {
         numOfRows : 25
     });
     const festivalData = await getData('searchFestival', {
-        arrange : 'C',
+        arrange : 'B',
     });
     const stayData = await getData('searchStay', {
-        arrange : 'C',
+        arrange : 'B',
     });
 
     pickEl.citiesArea.innerHTML = generateList(templates.citiesList, citiesData);

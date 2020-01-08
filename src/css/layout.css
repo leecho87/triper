@@ -127,3 +127,30 @@ body {
     width:20px;
     margin:0 auto 8px;
 }
+
+#Detail {
+    z-index:99999;
+    position:fixed;
+    top:0;
+    right:-100%;
+    width:100vw;
+    height:100vh;
+    -webkit-transition:right .7s cubic-bezier(0.550, 0.055, 0.675, 0.190);
+    transition:right .7s cubic-bezier(0.550, 0.055, 0.675, 0.190);
+    background-color:#fff;
+}
+
+#Detail.active {
+    right: 0;
+}
+
+#Detail .detail-close {
+    position:absolute;
+    top:30px;
+    right:30px;
+    width:30px;
+    height:30px;
+    background-color:skyblue;
+    opacity:.5;
+    font-size:0;
+}
