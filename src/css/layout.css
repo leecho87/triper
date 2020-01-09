@@ -154,3 +154,35 @@ body {
     opacity:.5;
     font-size:0;
 }
+
+.layer-wrap {
+    display:none;
+    z-index:99999;
+    position:fixed;
+    left:0;
+    top:0;
+    right:0;
+    bottom:0;
+    width:100%;
+    height:100%;
+}
+.layer-wrap .filter {
+    position:fixed;
+    left:0;
+    top:0;
+    right:0;
+    bottom:0;
+    width:100%;
+    height:100%;
+    background-color:#000;
+    opacity:.5
+}
+.layer-wrap .layer {
+    position:absolute;
+    left:20px;
+    top:20px;
+    right:20px;
+    bottom:20px;
+    overflow-y:scroll;
+    background-color:#fff;
+}

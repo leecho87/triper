@@ -242,3 +242,97 @@
   font-size:13px;
   color:#999
 }
+
+
+/* restaurant */
+#restaurant-list {
+  overflow:hidden;
+}
+
+#restaurant-list li {
+  float:left;
+  width:48.5%;
+  margin-top:16px;
+}
+
+#restaurant-list li:nth-child(odd) {
+  margin-right:3%;
+}
+
+#restaurant-list li:nth-child(-n+2) {
+  margin-top:0;
+}
+
+#restaurant-list .restaurant_thumb {
+  overflow:hidden;
+  height:110px;
+}
+
+#restaurant-list .restaurant_thumb img {
+  width:100%;
+  min-height:110px;
+}
+
+#restaurant-list .restaurant_text {
+  font-size:13px;
+  word-break:break-all;
+}
+
+#restaurant-list .restaurant_text.title {
+  overflow:hidden;
+  margin:6px 0 4px;
+  font-size:14px;
+  line-height:1.4;
+}
+
+#restaurant-list .restaurant_text.address {
+  font-size:12px;
+  color:#999;
+}
+
+#course-list {
+  overflow-y:hidden;
+  overflow-x:auto;
+  white-space:nowrap
+}
+
+#course-list::-webkit-scrollbar {
+  display:none
+}
+
+#course-list .course_item {
+  display:inline-block;
+  max-width:240px;
+  margin-right:20px;
+  vertical-align:top;
+}
+
+#course-list .course_item:last-child {
+  margin-right:0;
+}
+
+#course-list .course_thumb img {
+  height:160px;
+}
+
+#course-list .course_text {
+  padding:6px 0 4px;
+  word-break:break-all;
+  white-space:normal;
+}
+
+#course-list .course_text.title {
+  display:-webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  height:38px;
+  font-size:14px;
+  line-height:1.4;
+}
+
+#course-list .course_text.address,
+#course-list .course_text.tel {
+  padding:4px 0 2px;
+  font-size:13px;
+  color:#999
+}

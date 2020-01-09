@@ -68,15 +68,21 @@ const pickEl = (() => {
     // 리스트
     const citiesArea = qs('#cities-list');
     const localArea = qs('#local-list');
+    const courseArea = qs('#course-list');
+    const courseDetailArea = qs('.layer');
     const festivalArea = qs('#festival-list');
     const stayArea = qs('#stay-list');
+    const restaurantArea = qs('#restaurant-list');
 
     return {
         pages,
         citiesArea,
         localArea,
+        courseArea,
+        courseDetailArea,
         festivalArea,
         stayArea,
+        restaurantArea
     }
 })();
 
@@ -87,11 +93,14 @@ const generateList = (template, data) => {
     
     apiData.forEach(item => {
         fragment.innerHTML += html.replace(/{{ *(\w+) *}}/g, (match,key) => {
-            if (key === 'firstimage' && item[key] === undefined){
-                return 'http://placehold.it/320x100?text=image_not_found'
+            if (key === 'firstimage' && item[key] === undefined || key === 'subdetailimg' && item[key] === undefined){
+                return 'http://placehold.it/320x100?text=Triper'
             }
             if (key === 'eventstartdate' || key === 'eventenddate'){
                 return dateFormatter(item[key])
+            }
+            if (key === 'subnum'){
+                return item[key] = item[key]+1;
             }
 
             return item[key];
@@ -113,7 +122,7 @@ const destory = (selector) => {
     return selector.innerHTML = '';
 }
 
-const bindEvents = () => {        
+const bindEvents = () => {
     $on(pickEl.citiesArea, 'click', clickEvent => {
         clickEvent.preventDefault();
         let target = clickEvent.target;
@@ -132,6 +141,13 @@ const bindEvents = () => {
             list.style.maxHeight = '42px';
         }
     });
+
+    // $on(qsa('#course-list a'), 'click', clickEvent => {
+    //     clickEvent.preventDefault();
+    //     let contentid = clickEvent.currentTarget.dataset.contentid;
+    //     let contenttypeid = clickEvent.currentTarget.dataset.contenttypeid;
+    //     onDetailLayer({ contentid, contenttypeid });
+    // })
 
     $on(qsa('.more-btn'), 'click', clickEvent => {
         clickEvent.preventDefault();
@@ -156,6 +172,19 @@ const onDetail = () => {
     }
 }
 
+const onDetailLayer = async (params) => {
+    const detailData = await getData('detailInfo', {
+        contentId : params.contentid,
+        contentTypeId : params.contenttypeid,
+    });
+    pickEl.courseDetailArea.innerHTML = generateList(templates.courseDetailList, detailData);
+    viewDetailLayer();
+}
+
+const viewDetailLayer = () => {
+    qs('.layer-wrap').style.display = 'block'
+}
+
 const render = (container, element, data) => {
     let el = templates[element];
     console.log(el);
@@ -170,17 +199,27 @@ const init = (async () => {
         areaCode : 1,
         numOfRows : 25
     });
+    const courseData = await getData('areaBasedList', {
+        contentTypeId : 25,
+        arrange : 'P'
+    });
     const festivalData = await getData('searchFestival', {
         arrange : 'B',
     });
     const stayData = await getData('searchStay', {
         arrange : 'B',
     });
+    const restaurantData = await getData('areaBasedList', {
+        contentTypeId : 39,
+        arrange : 'P'
+    });
 
     pickEl.citiesArea.innerHTML = generateList(templates.citiesList, citiesData);
     pickEl.localArea.innerHTML = generateList(templates.localList, localData);
+    pickEl.courseArea.innerHTML = generateList(templates.courseList, courseData);
     pickEl.festivalArea.innerHTML = generateList(templates.festivalList, festivalData);
     pickEl.stayArea.innerHTML = generateList(templates.stayList, stayData);
+    pickEl.restaurantArea.innerHTML = generateList(templates.restaurantList, restaurantData);
 
     await bindEvents();
 })();

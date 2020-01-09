@@ -9,7 +9,6 @@
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR|Ubuntu&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./src/css/app.css">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
 </head>
 <body>
 
@@ -48,6 +47,13 @@
         </div>
         <!-- //구,군 -->
 
+        <!-- 추천코스 -->
+        <div class="content" id="course">
+            <h2 class="content_title">여행코스 <span class="sub">&middot;인기 여행코스 정보 입니다.</span></h2>
+            <ul id="course-list"></ul>
+        </div>
+        <!-- 추천코스 -->
+
         <!-- 행사 -->
         <div class="content" id="festival">
             <h2 class="content_title">행사정보 <span class="sub">&middot;인기 행사 정보 입니다.</span></h2>
@@ -63,6 +69,14 @@
             <a href="#" class="more-btn">상세보기</a>
         </div>
         <!-- //숙박 -->
+
+        <!-- 맛집 -->
+        <div class="content" id="restaurant">
+            <h2 class="content_title">맛집정보 <span class="sub">&middot;인기 맛집 정보 입니다.</span></h2>
+            <ul id="restaurant-list"></ul>
+            <a href="#" class="more-btn">상세보기</a>
+        </div>
+        <!-- //맛집 -->
     </div>
     <!-- //Main -->
 
@@ -71,6 +85,11 @@
         
     </div>
     <!-- //Search -->
+</div>
+
+<div class="layer-wrap">
+    <div class="filter"></div>
+    <div class="layer"></div>
 </div>
 
 <div id="Detail" class="disabled">
