@@ -16,13 +16,14 @@ const $on = (target, type, callback) => {
     }
 }
 
-const dateFormatter = (eventDate) => {
+const dateFormatter = (eventDate, flag) => {
+    let symbol = flag || '-';
     let strDate = eventDate.toString();
     let year = strDate.substring(0, 4);
     let month = strDate.substring(4, 6);
     let day = strDate.substring(6, 8);
 
-    return `${year}-${month}-${day}`;
+    return `${year}${symbol}${month}${symbol}${day}`;
 }
 
 const mergeObj = (arr1, arr2) => {
@@ -40,3 +41,15 @@ const mergeObj = (arr1, arr2) => {
 
     return obj;
 }
+
+const getToday = ( (date) => {
+    const strPad = (date) => {
+        return date > 9 ? date : '0' + date;
+    };
+
+    return [
+        date.getFullYear(),
+        strPad(date.getMonth()),
+        strPad(date.getDate())
+    ].join('');
+})(new Date());

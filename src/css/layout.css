@@ -179,10 +179,41 @@ body {
 }
 .layer-wrap .layer {
     position:absolute;
-    left:20px;
-    top:20px;
-    right:20px;
-    bottom:20px;
+    left:30px;
+    top:40px;
+    right:30px;
+    bottom:40px;
     overflow-y:scroll;
     background-color:#fff;
+}
+.layer-wrap .layer-close {
+    position:absolute;
+    right:30px;
+    top:1px;
+    width:40px;
+    height:40px;
+    font-size:0;
+    line-height:0;
+    color:transparent;
+    background-color:#fff;
+}
+.layer-wrap .layer-close:before {
+    content:'';
+    position:absolute;
+    left:8px;
+    top:18px;
+    width:24px;
+    height:2px;
+    background-color:#000;
+    transform:rotate(45deg);
+}
+.layer-wrap .layer-close:after {
+    content:'';
+    position:absolute;
+    left:8px;
+    top:18px;
+    width:24px;
+    height:2px;
+    background-color:#000;
+    transform:rotate(-45deg);
 }

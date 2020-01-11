@@ -1,18 +1,11 @@
+// 초기실행
+document.addEventListener('DOMContentLoaded', () => {
+    init();
+});
+
 const getInfo = (()=>{
     const apiUrl = '//api.visitkorea.or.kr/openapi/service/rest/KorService/';
     const apiKey = decodeURIComponent('Q6I%2FZ%2BtN8n3yVqpZvlgFIP8b9xAx8Sv2KgwT3lcFGRU3RJDZ5V09bOOtfLXTC9PW0kg2Ju9fGOWlO4BMrt2LMw%3D%3D');
-
-    const strPad = (date) => {
-        return date > 9 ? date : '0' + date;
-    };
-
-    const getToday = ( (date) => {
-        return [
-            date.getFullYear(),
-            strPad(date.getMonth()),
-            strPad(date.getDate())
-        ].join('');
-    })(new Date());
 
     const generateParams = (params) => {
         let data = {
@@ -28,13 +21,10 @@ const getInfo = (()=>{
             }
             data[keyName] = params[keyName];
         }
-
         return data;
     };
 
     return {
-        strPad,
-        getToday,
         generateParams,
         apiUrl
     }
@@ -47,10 +37,8 @@ const getData = async (serviceCode, params) => {
     })
     .then(res => data = res.data.response.body.items)
     .catch(err => console.error(err));
-
     if( !(params === undefined) && params.areaCode ){
         data = mergeObj(data.item, citiesInfo[params.areaCode]);
-        console.log(data);
     }
     return data;
 };
@@ -93,11 +81,11 @@ const generateList = (template, data) => {
     
     apiData.forEach(item => {
         fragment.innerHTML += html.replace(/{{ *(\w+) *}}/g, (match,key) => {
-            if (key === 'firstimage' && item[key] === undefined || key === 'subdetailimg' && item[key] === undefined){
+            if ( item[key] === undefined && key === 'firstimage' || key === 'subdetailimg'){
                 return 'http://placehold.it/320x100?text=Triper'
             }
             if (key === 'eventstartdate' || key === 'eventenddate'){
-                return dateFormatter(item[key])
+                return dateFormatter(item[key], '/');
             }
             if (key === 'subnum'){
                 return item[key] = item[key]+1;
@@ -132,33 +120,20 @@ const bindEvents = () => {
     $on(qs('.local-list-close'), 'click', clickEvent => {
         clickEvent.preventDefault();
         let target = clickEvent.target;
-        let list = document.querySelector('#local-list');
-        if ( target.dataset.state === 'close' ) {
-            target.dataset.state = 'open';
-            list.style.maxHeight = '999px';
-        } else {
-            target.dataset.state = 'close';
-            list.style.maxHeight = '42px';
-        }
-    });
-
-    // $on(qsa('#course-list a'), 'click', clickEvent => {
-    //     clickEvent.preventDefault();
-    //     let contentid = clickEvent.currentTarget.dataset.contentid;
-    //     let contenttypeid = clickEvent.currentTarget.dataset.contenttypeid;
-    //     onDetailLayer({ contentid, contenttypeid });
-    // })
-
-    $on(qsa('.more-btn'), 'click', clickEvent => {
-        clickEvent.preventDefault();
-        onDetail();
-    });
-
-    $on(qs('.detail-close'), 'click', clickEvent => {
-        clickEvent.preventDefault();
-        onDetail();
+        toggleUI(target);
     });
 };
+
+const toggleUI = (el) => {
+    let list = document.querySelector('#local-list');
+    if ( el.dataset.state === 'close' ) {
+        el.dataset.state = 'open';
+        list.style.maxHeight = '999px';
+    } else {
+        el.dataset.state = 'close';
+        list.style.maxHeight = '42px';
+    }
+}
 
 const onDetail = () => {
     let container = qs('#Detail');
@@ -172,25 +147,7 @@ const onDetail = () => {
     }
 }
 
-const onDetailLayer = async (params) => {
-    const detailData = await getData('detailInfo', {
-        contentId : params.contentid,
-        contentTypeId : params.contenttypeid,
-    });
-    pickEl.courseDetailArea.innerHTML = generateList(templates.courseDetailList, detailData);
-    viewDetailLayer();
-}
-
-const viewDetailLayer = () => {
-    qs('.layer-wrap').style.display = 'block'
-}
-
-const render = (container, element, data) => {
-    let el = templates[element];
-    console.log(el);
-};
-
-const init = (async () => {
+const init = async () => {
     // 초기데이터 호출
     const citiesData = await getData('areaCode', {
         numOfRows : 17
@@ -222,4 +179,12 @@ const init = (async () => {
     pickEl.restaurantArea.innerHTML = generateList(templates.restaurantList, restaurantData);
 
     await bindEvents();
-})();
+};
+
+const apiTest = async () => {
+    const festivalData = await getData('searchFestival', {
+        arrange : 'B',
+    });
+
+    console.log('[apiTest] / festivalData ', festivalData);
+}

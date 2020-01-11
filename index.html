@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>TRIPER</title>
+    <title>Triper</title>
+    <meta property="og:title" content="Triper"/>
+    <meta property="og:image" content="./og.jpg"/>
+    <meta property="og:description" content="여행가고싶다!!!"/>
     <link rel="icon" type="image/png" sizes="120x120" href="./favicon-120x120.png">
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR|Ubuntu&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./src/css/app.css">
@@ -51,6 +54,7 @@
         <div class="content" id="course">
             <h2 class="content_title">여행코스 <span class="sub">&middot;인기 여행코스 정보 입니다.</span></h2>
             <ul id="course-list"></ul>
+            <a href="#" class="more-btn">전체보기</a>
         </div>
         <!-- 추천코스 -->
 
@@ -58,7 +62,7 @@
         <div class="content" id="festival">
             <h2 class="content_title">행사정보 <span class="sub">&middot;인기 행사 정보 입니다.</span></h2>
             <ul id="festival-list"></ul>
-            <a href="#" class="more-btn">상세보기</a>
+            <a href="#searchFestival?arrange=B" class="more-btn">전체보기</a>
         </div>
         <!-- //행사 -->
 
@@ -66,7 +70,7 @@
         <div class="content" id="stay">
             <h2 class="content_title">숙박정보 <span class="sub">&middot;인기 숙박 정보 입니다.</span></h2>
             <ul id="stay-list"></ul>
-            <a href="#" class="more-btn">상세보기</a>
+            <a href="#" class="more-btn">전체보기</a>
         </div>
         <!-- //숙박 -->
 
@@ -74,7 +78,7 @@
         <div class="content" id="restaurant">
             <h2 class="content_title">맛집정보 <span class="sub">&middot;인기 맛집 정보 입니다.</span></h2>
             <ul id="restaurant-list"></ul>
-            <a href="#" class="more-btn">상세보기</a>
+            <a href="#" class="more-btn">전체보기</a>
         </div>
         <!-- //맛집 -->
     </div>
@@ -90,6 +94,7 @@
 <div class="layer-wrap">
     <div class="filter"></div>
     <div class="layer"></div>
+    <a href="#" class="layer-close">닫기</a>
 </div>
 
 <div id="Detail" class="disabled">
@@ -126,6 +131,12 @@
     </div>
 </div>
 <!-- // FIXED MENU -->
+
+
+<div id="Test">
+    <h1>테스트영역</h1>
+    <div id="testbox"></div>
+</div>
 <!-- <a href="#" id="Quick">상단으로</a> -->
 <script src="./src/js/helper.js"></script>
 <script src="./src/js/template.js"></script>
